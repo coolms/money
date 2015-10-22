@@ -102,6 +102,11 @@ return [
             'CmsMoney\Service\CurrencyList'  => 'CmsMoney\Factory\CurrencyListFactory',
         ],
     ],
+    'view_helpers' => [
+        'invokables' => [
+            'moneyFormat' => 'CmsMoney\View\Helper\MoneyFormat',
+        ],
+    ],
     'view_manager' => [
         'template_map' => [
             'cms-money/money-fieldset' => __DIR__ . '/../view/cms-money/money-fieldset.phtml',

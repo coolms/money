@@ -40,6 +40,7 @@ return array(
     'CmsMoney\Service\CurrencyListInterface'              => __DIR__ . '/src/Service/CurrencyListInterface.php',
     'CmsMoney\Stdlib\Math'                                => __DIR__ . '/src/Stdlib/Math.php',
     'CmsMoney\Validator\CurrencyCode'                     => __DIR__ . '/src/Validator/CurrencyCode.php',
+    'CmsMoney\View\Helper\MoneyFormat'                    => __DIR__ . '/src/View/Helper/MoneyFormat.php',
     'CmsMoneyTest\Framework\TestCase'                     => __DIR__ . '/tests/Framework/TestCase.php',
     'CmsMoneyTest\SampleTest'                             => __DIR__ . '/tests/SampleTest.php',
 );
