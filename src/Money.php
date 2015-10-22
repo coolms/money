@@ -647,7 +647,7 @@ class Money implements JsonSerializable, Serializable
         $unserialized = unserialize($serialized);
 
         $this->amount = Decimal::create($unserialized['amount']);
-        $this->currency = unserialize($serialized['currency']);
+        $this->currency = unserialize($unserialized['currency']);
     }
 
     /**
@@ -658,7 +658,7 @@ class Money implements JsonSerializable, Serializable
     public function jsonSerialize()
     {
         return [
-            'amount'    => $this->amount,
+            'amount'    => (string) $this->amount,
             'currency'  => $this->currency,
         ];
     }

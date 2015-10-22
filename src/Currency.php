@@ -135,12 +135,16 @@ class Currency implements CurrencyInterface, JsonSerializable, Serializable
     }
 
     /**
-     * @param string $code
+     * @param string|Currency $code
      * @param string $locale
      * @return self
      */
     public static function create($code = null, $locale = null)
     {
+        if ($code instanceof CurrencyInterface && $this->equals($code)) {
+            return $code;
+        }
+
         return new static($code, $locale);
     }
 
