@@ -10,19 +10,20 @@
 
 namespace CmsMoney;
 
-use Zend\Filter\StaticFilter,
-    Zend\Filter\Word\CamelCaseToUnderscore,
-    Zend\Filter\Word\UnderscoreToCamelCase,
-    JsonSerializable,
+use JsonSerializable,
     Locale,
-    NumberFormatter;
+    NumberFormatter,
+    Serializable,
+    Zend\Filter\StaticFilter,
+    Zend\Filter\Word\CamelCaseToUnderscore,
+    Zend\Filter\Word\UnderscoreToCamelCase;
 
 /**
  * Currency Value Object
  *
  * @author Dmitry Popov <d.popov@altgraphic.com>
  */
-class Currency implements CurrencyInterface, JsonSerializable
+class Currency implements CurrencyInterface, JsonSerializable, Serializable
 {
     /**
      * @var string
@@ -327,11 +328,20 @@ class Currency implements CurrencyInterface, JsonSerializable
     }
 
     /**
-     * @return string
+     * {@inheritDoc}
      */
-    public function __toString()
+    public function serialize()
     {
-        return $this->getIsoCode();
+        return serialize($this->toArray());
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function unserialize($serialized)
+    {
+        $unserialized = unserialize($serialized);
+        $this->fromArray($unserialized);
     }
 
     /**
@@ -342,5 +352,13 @@ class Currency implements CurrencyInterface, JsonSerializable
     public function jsonSerialize()
     {
         return $this->toArray();
+    }
+
+    /**
+     * @return string
+     */
+    public function __toString()
+    {
+        return $this->getIsoCode();
     }
 }

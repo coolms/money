@@ -10,7 +10,8 @@
 
 namespace CmsMoney;
 
-use JsonSerializable,
+use Serializable,
+    JsonSerializable,
     Litipk\BigNumbers\Decimal,
     CmsMoney\Stdlib\Math;
 
@@ -19,7 +20,7 @@ use JsonSerializable,
  *
  * @author Dmitry Popov <d.popov@altgraphic.com>
  */
-class Money implements JsonSerializable
+class Money implements JsonSerializable, Serializable
 {
     const PRECISION_CURRENCY = 0;
     const PRECISION_COMMON   = 2;
@@ -625,6 +626,28 @@ class Money implements JsonSerializable
     public function __toString()
     {
         return (string)$this->getAmount();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function serialize()
+    {
+        return serialize([
+            'amount' => (string) $this->amount,
+            'currency' => serialize($this->currency),
+        ]);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function unserialize($serialized)
+    {
+        $unserialized = unserialize($serialized);
+
+        $this->amount = Decimal::create($unserialized['amount']);
+        $this->currency = unserialize($serialized['currency']);
     }
 
     /**
