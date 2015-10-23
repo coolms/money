@@ -23,6 +23,7 @@ return array(
     'CmsMoney\Mapping\CurrencyInterface'                  => __DIR__ . '/src/Mapping/CurrencyInterface.php',
     'CmsMoney\Mapping\ExchangeRateInterface'              => __DIR__ . '/src/Mapping/ExchangeRateInterface.php',
     'CmsMoney\Mapping\Money'                              => __DIR__ . '/src/Mapping/Money.php',
+    'CmsMoney\Mapping\MoneyableInterface'                 => __DIR__ . '/src/Mapping/MoneyableInterface.php',
     'CmsMoney\Mapping\PriceableInterface'                 => __DIR__ . '/src/Mapping/PriceableInterface.php',
     'CmsMoney\Module'                                     => __DIR__ . '/src/Module.php',
     'CmsMoney\Money'                                      => __DIR__ . '/src/Money.php',
