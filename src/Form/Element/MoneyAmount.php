@@ -10,7 +10,9 @@
 
 namespace CmsMoney\Form\Element;
 
-use CmsCommon\Form\Element\Number;
+use Locale,
+    NumberFormatter,
+    CmsCommon\Form\Element\Number;
 
 class MoneyAmount extends Number
 {
@@ -49,8 +51,8 @@ class MoneyAmount extends Number
             [
                 'name' => 'NumberParse',
                 'options' => [
-                    'style' => \NumberFormatter::DECIMAL,
-                    'type' => \NumberFormatter::TYPE_DOUBLE,
+                    'style'  => NumberFormatter::DECIMAL,
+                    'type'   => NumberFormatter::TYPE_DOUBLE,
                     'locale' => $this->getLocale(),
                 ],
             ],
@@ -79,7 +81,7 @@ class MoneyAmount extends Number
     public function getLocale()
     {
         if (null === $this->locale) {
-            return \Locale::getDefault();
+            return Locale::getDefault();
         }
 
         return $this->locale;
