@@ -27,9 +27,11 @@ class MoneyAmount extends Number
     protected function getValidators()
     {
         return [
-            'name' => 'IsFloat',
-            'options' => [
-                'locale' => $this->getLocale(),
+            [
+                'name' => 'IsFloat',
+                'options' => [
+                    'locale' => $this->getLocale(),
+                ],
             ],
         ];
     }

@@ -138,7 +138,7 @@ class CurrencySelect extends Select
     {
         if (null === $this->validator) {
             $this->validator = [
-                'name' => 'CurrencyValidator',
+                'name' => 'CurrencyCode',
             ];
         }
 
@@ -164,11 +164,16 @@ class CurrencySelect extends Select
     {
         $inputSpec = parent::getInputSpecification();
 
-        array_unshift(
-            $inputSpec['filters'],
+        $defaultFilters = [
             ['name' => 'StringToUpper'],
-            ['name' => 'StringTrim']
-        );
+            ['name' => 'StringTrim'],
+        ];
+
+        if (isset($inputSpec['filters'])) {
+            array_unshift($inputSpec['filters'], $defaultFilters);
+        } else {
+            $inputSpec['filters'] = $defaultFilters;
+        }
 
         return $inputSpec;
     }

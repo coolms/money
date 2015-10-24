@@ -8,27 +8,25 @@
  * @author    Dmitry Popov <d.popov@altgraphic.com>
  */
 
-namespace CmsMoney\Factory\Form;
+namespace CmsMoney\Factory\Validator;
 
 use Zend\ServiceManager\FactoryInterface,
     Zend\ServiceManager\ServiceLocatorInterface,
-    CmsMoney\Form\Money,
-    CmsMoney\Options\ModuleOptions,
-    CmsMoney\Options\ModuleOptionsInterface;
+    CmsMoney\Service\CurrencyListInterface,
+    CmsMoney\Validator\CurrencyCode;
 
-class MoneyFactory implements FactoryInterface
+class CurrencyCodeFactory implements FactoryInterface
 {
     /**
      * {@inheritDoc}
      *
-     * @return Money
+     * @return CurrencyCode
      */
     public function createService(ServiceLocatorInterface $serviceLocator)
     {
         $services = $serviceLocator->getServiceLocator();
-        /* @var $options ModuleOptionsInterface */
-        $options = $services->get(ModuleOptions::class);
-        $element = new Money('money');
-        return $element;
+        $validator = new CurrencyCode();
+        $validator->setCurrencyList($services->get(CurrencyListInterface::class));
+        return $validator;
     }
 }

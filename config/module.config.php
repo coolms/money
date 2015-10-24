@@ -102,6 +102,14 @@ return [
             'CmsMoney\Service\CurrencyList'  => 'CmsMoney\Factory\CurrencyListFactory',
         ],
     ],
+    'validators' => [
+        'aliases' => [
+            'CurrencyCode' => 'CmsMoney\Validator\CurrencyCode',
+        ],
+        'factories' => [
+            'CmsMoney\Validator\CurrencyCode' => 'CmsMoney\Factory\Validator\CurrencyCodeFactory',
+        ],
+    ],
     'view_helpers' => [
         'aliases' => [
             'currencyList' => 'CmsMoney\View\Helper\CurrencyList',
