@@ -103,6 +103,12 @@ return [
         ],
     ],
     'view_helpers' => [
+        'aliases' => [
+            'currencyList' => 'CmsMoney\View\Helper\CurrencyList',
+        ],
+        'factories' => [
+            'CmsMoney\View\Helper\CurrencyList' => 'CmsMoney\Factory\View\Helper\CurrencyListFactory',
+        ],
         'invokables' => [
             'moneyFormat' => 'CmsMoney\View\Helper\MoneyFormat',
         ],

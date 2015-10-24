@@ -15,7 +15,7 @@ use Zend\I18n\View\Helper\CurrencyFormat,
     CmsMoney\Money;
 
 /**
- * View helper for shopping cart
+ * View helper for Money formatting
  */
 class MoneyFormat extends AbstractHelper
 {
@@ -28,6 +28,16 @@ class MoneyFormat extends AbstractHelper
      * @var string
      */
     protected $defaultCurrencyFormatter = 'currencyFormat';
+
+    /**
+     * @var CurrencyList
+     */
+    protected $currencyListHelper;
+
+    /**
+     * @var string
+     */
+    protected $defaultCurrencyListHelper = 'currencyList';
 
     /**
      * @param  Money  $money
@@ -44,8 +54,12 @@ class MoneyFormat extends AbstractHelper
         $showDecimals = null,
         $pattern      = null
     ) {
-        if (null === $money) {
+        if (0 === func_num_args()) {
             return $this;
+        }
+
+        if (null === $money) {
+            $money = new Money(0, $this->getCurrencyListHelper()->getDefault());
         }
 
         return $this->render($money, $locale, $showDecimals, $pattern);
@@ -104,6 +118,32 @@ class MoneyFormat extends AbstractHelper
     public function setCurrencyFormatter(CurrencyFormat $formatter)
     {
         $this->currencyFormatter = $formatter;
+        return $this;
+    }
+
+    /**
+     * @return CurrencyList
+     */
+    protected function getCurrencyListHelper()
+    {
+        if ($this->currencyListHelper) {
+            return $this->currencyListHelper;
+        }
+
+        if (method_exists($this->view, 'plugin')) {
+            $this->currencyListHelper = $this->view->plugin($this->defaultCurrencyListHelper);
+        }
+
+        return $this->currencyListHelper;
+    }
+
+    /**
+     * @param CurrencyList $helper
+     * @return self
+     */
+    public function setCurrencyListHelper(CurrencyList $helper)
+    {
+        $this->currencyListHelper = $helper;
         return $this;
     }
 }
