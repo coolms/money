@@ -56,7 +56,7 @@ class Money implements JsonSerializable, Serializable
     /**
      * @var int
      */
-    protected static $innerPrecision = self::PRECISION_GAAP;
+    private static $innerPrecision = self::PRECISION_GAAP;
 
     /**
      * @param number|Decimal            $amount   Decimal, expressed in the smallest units of $currency (eg cents)
