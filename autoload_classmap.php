@@ -15,6 +15,7 @@ return array(
     'CmsMoney\Factory\Form\Element\CurrencySelectFactory' => __DIR__ . '/src/Factory/Form/Element/CurrencySelectFactory.php',
     'CmsMoney\Factory\Form\MoneyFactory'                  => __DIR__ . '/src/Factory/Form/MoneyFactory.php',
     'CmsMoney\Factory\ModuleOptionsFactory'               => __DIR__ . '/src/Factory/ModuleOptionsFactory.php',
+    'CmsMoney\Factory\Validator\CurrencyCodeFactory'      => __DIR__ . '/src/Factory/Validator/CurrencyCodeFactory.php',
     'CmsMoney\Factory\View\Helper\CurrencyListFactory'    => __DIR__ . '/src/Factory/View/Helper/CurrencyListFactory.php',
     'CmsMoney\Form\Element\CurrencySelect'                => __DIR__ . '/src/Form/Element/CurrencySelect.php',
     'CmsMoney\Form\Element\MoneyAmount'                   => __DIR__ . '/src/Form/Element/MoneyAmount.php',
