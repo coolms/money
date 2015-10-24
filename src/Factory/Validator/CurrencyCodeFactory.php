@@ -27,6 +27,7 @@ class CurrencyCodeFactory implements FactoryInterface
         $services = $serviceLocator->getServiceLocator();
         $validator = new CurrencyCode();
         $validator->setCurrencyList($services->get(CurrencyListInterface::class));
+
         return $validator;
     }
 }
