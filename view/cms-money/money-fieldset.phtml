@@ -11,19 +11,18 @@
 namespace CmsMoney;
 
 // Set form fields classes and placeholders here
-/*$this->fieldset->get('startDate')->setOption('twbs', [
-    'col' => ['class' => 'col-xs-12 col-sm-6'],
-    'endDate' => [
-        'type' => 'formGroupElement',
-        'content' => 'endDate',
-        'order' => 9050,
+$this->fieldset->get('amount')->setOption('twbs', [
+    'currency' => [
+        'type' => 'element',
+        'content' => 'currency',
         'placement' => 'append',
+        'class' => 'selectpicker btn btn-default',
+        'order' => 5950,
+        'decorators' => [
+            'inputGroupBtn',
+        ],
     ],
 ]);
-
-$this->fieldset->get('endDate')->setOption('twbs', [
-    'col' => ['class' => 'col-xs-12 col-sm-6'],
-]);*/
 
 ?>
 <?= $this->formCollection($this->fieldset, true, false);
