@@ -141,7 +141,7 @@ class Currency implements CurrencyInterface, JsonSerializable, Serializable
      */
     public static function create($code = null, $locale = null)
     {
-        if ($code instanceof CurrencyInterface && $this->equals($code)) {
+        if ($code instanceof CurrencyInterface) {
             return $code;
         }
 
