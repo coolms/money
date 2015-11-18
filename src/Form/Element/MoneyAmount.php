@@ -12,7 +12,8 @@ namespace CmsMoney\Form\Element;
 
 use Locale,
     NumberFormatter,
-    CmsCommon\Form\Element\Number;
+    CmsCommon\Form\Element\Number,
+    CmsCommon\Stdlib\ArrayUtils;
 
 class MoneyAmount extends Number
 {
@@ -47,11 +48,11 @@ class MoneyAmount extends Number
         $validators = parent::getValidators();
 
         array_unshift($validators, [
-                'name' => 'IsFloat',
-                'options' => [
-                    'locale' => $this->getLocale(),
-                ],
-            ]);
+            'name' => 'IsFloat',
+            'options' => [
+                'locale' => $this->getLocale(),
+            ],
+        ]);
 
         return $validators;
     }
