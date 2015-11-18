@@ -26,16 +26,34 @@ class MoneyAmount extends Number
     /**
      * {@inheritDoc}
      */
+    public function setOptions($options)
+    {
+        parent::setOptions($options);
+
+        if ($options instanceof Traversable) {
+            $options = ArrayUtils::iteratorToArray($options);
+        }
+
+        if (isset($options['locale'])) {
+            $this->setLocale($options['locale']);
+        }
+    }
+
+    /**
+     * {@inheritDoc}
+     */
     protected function getValidators()
     {
-        return [
-            [
+        $validators = parent::getValidators();
+
+        array_unshift($validators, [
                 'name' => 'IsFloat',
                 'options' => [
                     'locale' => $this->getLocale(),
                 ],
-            ],
-        ];
+            ]);
+
+        return $validators;
     }
 
     /**
