@@ -118,7 +118,7 @@ return [
             'CmsMoney\View\Helper\CurrencyList' => 'CmsMoney\Factory\View\Helper\CurrencyListFactory',
         ],
         'invokables' => [
-            'moneyFormat' => 'CmsMoney\View\Helper\MoneyFormat',
+            'moneyFormat' => 'CmsMoney\View\Helper\Format',
         ],
     ],
     'view_manager' => [

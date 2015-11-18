@@ -17,7 +17,7 @@ use Zend\I18n\View\Helper\CurrencyFormat,
 /**
  * View helper for Money formatting
  */
-class MoneyFormat extends AbstractHelper
+class Format extends AbstractHelper
 {
     /**
      * @var CurrencyFormat

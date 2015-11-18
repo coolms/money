@@ -56,6 +56,11 @@ class Money implements JsonSerializable, Serializable
     /**
      * @var int
      */
+    private $precision;
+
+    /**
+     * @var int
+     */
     private static $innerPrecision = self::PRECISION_GAAP;
 
     /**
@@ -111,18 +116,34 @@ class Money implements JsonSerializable, Serializable
     private function getInnerPrecision()
     {
         if (!self::$innerPrecision) {
-            return (int) $this->getCurrencyPrecision();
+            return (int) $this->currency->getFractionDigits();
         }
 
         return self::$innerPrecision;
     }
 
     /**
+     * @param int $precision
+     * @return self
+     */
+    public function setPrecision($precision)
+    {
+        self::assertPrecision($precision);
+        $this->precision = $precision;
+
+        return $this;
+    }
+
+    /**
      * @return int
      */
-    private function getCurrencyPrecision()
+    private function getPrecision()
     {
-        return (int) $this->currency->getFractionDigits();
+        if (null === $this->precision) {
+            return $this->getInnerPrecision();
+        }
+
+        return $this->precision;
     }
 
     /**
@@ -270,7 +291,7 @@ class Money implements JsonSerializable, Serializable
     {
         $this->assertRoundingMode($roundingMode);
 
-        $precision = $this->getCurrencyPrecision();
+        $precision = $this->getPrecision();
         if (null === $roundingMode) {
             $amount = $this->amount->round($precision);
         } else {
@@ -295,7 +316,7 @@ class Money implements JsonSerializable, Serializable
     public function toUnits($roundingMode = self::ROUND_HALF_UP)
     {
         $this->assertRoundingMode($roundingMode);
-        $precision = $this->getCurrencyPrecision();
+        $precision = $this->getPrecision();
 
         if (null === $roundingMode) {
             return $this->amount->round($precision);
@@ -397,7 +418,7 @@ class Money implements JsonSerializable, Serializable
     {
         $this->assertPrecision($precision);
         if (!$precision) {
-            $precision = null === $precision ? $this->getInnerPrecision() : $this->getCurrencyPrecision();
+            $precision = null === $precision ? $this->getInnerPrecision() : $this->getPrecision();
         }
 
         return $this->castInteger($precision);

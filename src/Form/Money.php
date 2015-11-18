@@ -10,7 +10,9 @@
 
 namespace CmsMoney\Form;
 
-use CmsCommon\Form\InputFilterProviderFieldset,
+use Traversable,
+    Zend\Form\Exception,
+    CmsCommon\Form\InputFilterProviderFieldset,
     CmsCommon\Stdlib\ArrayUtils,
     CmsMoney\Mapping\Money as MoneyObject;
 
@@ -37,16 +39,16 @@ class Money extends InputFilterProviderFieldset
     {
         if (!$this->has('amount')) {
             $this->add([
-                'name' => 'amount',
-                'type' => 'MoneyAmount',
+                'name'  => 'amount',
+                'type'  => 'MoneyAmount',
                 'label' => 'Amount',
             ]);
         }
 
         if (!$this->has('currency')) {
             $this->add([
-                'name' => 'currency',
-                'type' => 'CurrencySelect',
+                'name'  => 'currency',
+                'type'  => 'CurrencySelect',
                 'label' => 'Currency',
             ]);
         }
@@ -105,6 +107,41 @@ class Money extends InputFilterProviderFieldset
         }
 
         return $this;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function populateValues($data)
+    {
+        if ($data instanceof Traversable) {
+            $data = ArrayUtils::iteratorToArray($data, true);
+        }
+
+        if (!is_array($data)) {
+            throw new Exception\InvalidArgumentException(sprintf(
+                '%s expects an array or Traversable set of data; received "%s"',
+                __METHOD__,
+                (is_object($data) ? get_class($data) : gettype($data))
+            ));
+        }
+
+        if (!isset($data['amount']) || !isset($data['currency'])) {
+            throw new Exception\InvalidArgumentException(sprintf(
+                '%s expects an array with money amount and currency specified; received "%s"',
+                __METHOD__,
+                print_r($data, true)
+            ));
+        }
+
+        $money = new MoneyObject($data['amount'], $data['currency']);
+        if (null === ($precision = $this->getOption('precision'))) {
+            $precision = MoneyObject::PRECISION_CURRENCY;
+        }
+
+        $data['amount'] = $money->setPrecision($precision)->toUnits();
+
+        return parent::populateValues($data);
     }
 
     /**

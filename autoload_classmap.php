@@ -44,7 +44,7 @@ return array(
     'CmsMoney\Stdlib\Math'                                => __DIR__ . '/src/Stdlib/Math.php',
     'CmsMoney\Validator\CurrencyCode'                     => __DIR__ . '/src/Validator/CurrencyCode.php',
     'CmsMoney\View\Helper\CurrencyList'                   => __DIR__ . '/src/View/Helper/CurrencyList.php',
-    'CmsMoney\View\Helper\MoneyFormat'                    => __DIR__ . '/src/View/Helper/MoneyFormat.php',
+    'CmsMoney\View\Helper\Format'                         => __DIR__ . '/src/View/Helper/Format.php',
     'CmsMoneyTest\Framework\TestCase'                     => __DIR__ . '/tests/Framework/TestCase.php',
     'CmsMoneyTest\SampleTest'                             => __DIR__ . '/tests/SampleTest.php',
 );
