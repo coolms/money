@@ -245,7 +245,7 @@ class Money implements JsonSerializable, Serializable
         $innerPrecision = $this->getInnerPrecision();
 
         if (!$amount instanceof Decimal) {
-            $amount = Decimal::create($amount, $innerPrecision);
+            $amount = Decimal::create($amount ?: 0, $innerPrecision);
         }
 
         $subunitToUnit = $this->currency->getSubunitToUnit();
