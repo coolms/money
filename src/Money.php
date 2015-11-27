@@ -248,6 +248,7 @@ class Money implements JsonSerializable, Serializable
             $amount = Decimal::create($amount ?: 0, $innerPrecision);
         }
 
+        $this->currency = $this->normalizeCurrency($this->currency);
         $subunitToUnit = $this->currency->getSubunitToUnit();
         if (is_int(func_get_arg(0)) && $subunitToUnit > 1) {
             $subunitToUnit = Decimal::create($subunitToUnit, $innerPrecision);
@@ -265,10 +266,8 @@ class Money implements JsonSerializable, Serializable
     {
         if (null === $currency) {
             $currency = new Currency;
-        } else {
-            if (is_string($currency)) {
-                $currency = new Currency($currency);
-            }
+        } elseif (is_string($currency)) {
+            $currency = new Currency($currency);
         }
 
         return $currency;
