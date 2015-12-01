@@ -12,6 +12,7 @@ namespace CmsMoney\Form\Element;
 
 use Locale,
     NumberFormatter,
+    Traversable,
     CmsCommon\Form\Element\Number,
     CmsCommon\Stdlib\ArrayUtils;
 
@@ -89,6 +90,7 @@ class MoneyAmount extends Number
     public function setLocale($locale = null)
     {
         $this->locale = $locale;
+
         return $this;
     }
 

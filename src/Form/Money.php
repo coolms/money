@@ -94,7 +94,7 @@ class Money extends InputFilterProviderFieldset
             return $this;
         }
 
-        if ($value instanceof \Traversable) {
+        if ($value instanceof Traversable) {
             $value = ArrayUtils::iteratorToArray($value, false);
         }
 
@@ -151,6 +151,7 @@ class Money extends InputFilterProviderFieldset
     public function setMax($max)
     {
         $this->get('amount')->setMax($max);
+
         return $this;
     }
 
@@ -169,6 +170,7 @@ class Money extends InputFilterProviderFieldset
     public function setMin($min)
     {
         $this->get('amount')->setMin($min);
+
         return $this;
     }
 
@@ -187,6 +189,7 @@ class Money extends InputFilterProviderFieldset
     public function setStep($step)
     {
         $this->get('amount')->setStep($step);
+
         return $this;
     }
 
@@ -207,6 +210,7 @@ class Money extends InputFilterProviderFieldset
     public function setLocale($locale = null)
     {
         $this->get('amount')->setLocale($locale);
+
         return $this;
     }
 

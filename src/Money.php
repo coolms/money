@@ -26,19 +26,19 @@ class Money implements JsonSerializable, Serializable
     const PRECISION_COMMON   = 2;
     const PRECISION_GAAP     = 4;
 
-    const ROUND_HALF_UP     = Math::ROUND_HALF_UP;
-    const ROUND_HALF_DOWN   = Math::ROUND_HALF_DOWN;
-    const ROUND_HALF_EVEN   = Math::ROUND_HALF_EVEN;
-    const ROUND_HALF_ODD    = Math::ROUND_HALF_ODD;
+    const ROUND_HALF_UP      = Math::ROUND_HALF_UP;
+    const ROUND_HALF_DOWN    = Math::ROUND_HALF_DOWN;
+    const ROUND_HALF_EVEN    = Math::ROUND_HALF_EVEN;
+    const ROUND_HALF_ODD     = Math::ROUND_HALF_ODD;
 
     /**
      * @var array
      */
     private $roundingModes = [
-        'ROUND_HALF_DOWN'   => self::ROUND_HALF_DOWN,
-        'ROUND_HALF_EVEN'   => self::ROUND_HALF_EVEN,
-        'ROUND_HALF_ODD'    => self::ROUND_HALF_ODD,
-        'ROUND_HALF_UP'     => self::ROUND_HALF_UP,
+        'ROUND_HALF_DOWN'    => self::ROUND_HALF_DOWN,
+        'ROUND_HALF_EVEN'    => self::ROUND_HALF_EVEN,
+        'ROUND_HALF_ODD'     => self::ROUND_HALF_ODD,
+        'ROUND_HALF_UP'      => self::ROUND_HALF_UP,
     ];
 
     /**
@@ -71,7 +71,7 @@ class Money implements JsonSerializable, Serializable
     public function __construct($amount = 0, $currency = null)
     {
         $this->currency = $this->normalizeCurrency($currency);
-        $this->amount = $this->normalizeAmount($amount);
+        $this->amount   = $this->normalizeAmount($amount);
     }
 
     /**
@@ -193,6 +193,7 @@ class Money implements JsonSerializable, Serializable
     public function compare(Money $money)
     {
         $this->assertSameCurrency($money);
+
         return $this->amount->comp($money->amount, $this->getInnerPrecision());
     }
 
@@ -343,7 +344,9 @@ class Money implements JsonSerializable, Serializable
     private function assertInteger($amount)
     {
         if (!is_int($amount)) {
-            throw new Exception\UnexpectedValueException('The result of arithmetic operation is not an integer');
+            throw new Exception\UnexpectedValueException(
+                'The result of arithmetic operation is not an integer'
+            );
         }
     }
 
@@ -358,6 +361,7 @@ class Money implements JsonSerializable, Serializable
     {
         $this->assertSameCurrency($money);
         $amount = $this->amount->add($money->amount, $this->getInnerPrecision());
+
         return $this->newInstance($amount);
     }
 
@@ -372,6 +376,7 @@ class Money implements JsonSerializable, Serializable
     {
         $this->assertSameCurrency($money);
         $amount = $this->amount->sub($money->amount, $this->getInnerPrecision());
+
         return $this->newInstance($amount);
     }
 
@@ -384,7 +389,9 @@ class Money implements JsonSerializable, Serializable
     private function assertOperand($operand)
     {
         if (!is_int($operand) && !is_float($operand)) {
-            throw new Exception\InvalidArgumentException('Operand should be an integer or a float');
+            throw new Exception\InvalidArgumentException(
+                'Operand should be an integer or a float'
+            );
         }
     }
 
@@ -448,7 +455,7 @@ class Money implements JsonSerializable, Serializable
     private function castInteger($int)
     {
         $this->assertIntegerBounds($int);
-        return (int)$int;
+        return (int) $int;
     }
 
     /**
@@ -484,7 +491,7 @@ class Money implements JsonSerializable, Serializable
     {
         $this->assertRoundingMode($roundingMode);
         $multiplier = $this->castOperand($multiplier);
-        $precision = $this->castPrecision($precision);
+        $precision  = $this->castPrecision($precision);
 
         $amount = $this->amount->mul($multiplier, $this->getInnerPrecision() + 1);
 
@@ -538,8 +545,7 @@ class Money implements JsonSerializable, Serializable
      */
     public function allocate(array $ratios, $precision = self::PRECISION_CURRENCY)
     {
-        $precision = $this->castPrecision($precision);
-
+        $precision  = $this->castPrecision($precision);
         $remainder  = $this->amount;
         $results    = [];
         $total      = Decimal::create(array_sum($ratios), $precision);
@@ -598,6 +604,7 @@ class Money implements JsonSerializable, Serializable
         $this->assertRoundingMode($roundingMode);
         $exchangeRate = $this->castOperand($exchangeRate);
         $amount = $this->amount->mul($exchangeRate, $this->getInnerPrecision());
+
         return new static($amount, $targetCurrency);
     }
 
@@ -645,7 +652,7 @@ class Money implements JsonSerializable, Serializable
      */
     public function __toString()
     {
-        return (string)$this->getAmount();
+        return (string) $this->getAmount();
     }
 
     /**
@@ -654,8 +661,8 @@ class Money implements JsonSerializable, Serializable
     public function serialize()
     {
         return serialize([
-            'amount' => (string) $this->amount,
-            'currency' => serialize($this->currency),
+            'amount'    => (string) $this->amount,
+            'currency'  => serialize($this->currency),
         ]);
     }
 
@@ -666,7 +673,7 @@ class Money implements JsonSerializable, Serializable
     {
         $unserialized = unserialize($serialized);
 
-        $this->amount = Decimal::create($unserialized['amount']);
+        $this->amount   = Decimal::create($unserialized['amount']);
         $this->currency = unserialize($unserialized['currency']);
     }
 
