@@ -15,6 +15,7 @@
     "php" : ">=5.5.0",
     "ext-intl" : "*",
     "litipk/php-bignumbers": ">=0.7.1",
+    "payum/iso4217": "~1.0",
     "coolms/common" : "dev-master@dev"
   },
   "require-dev" : {
